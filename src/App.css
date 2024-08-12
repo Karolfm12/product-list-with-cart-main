@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap");
+
+main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Red Hat Text", sans-serif;
+}
+
+.container {
+  border: 1px solid red;
+  max-width: 1440px;
+  padding: 80px;
+}
+
+.container-left {
+  width: 75%;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+.item .item-category {
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.item .item-name {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.item .item-price {
+  font-weight: 800;
+  color: rgb(178, 38, 38);
+}
+
+.items-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.item {
+  position: relative;
+  /* width: 200px; */
+  border: 1px solid red;
+  width: 270px;
+}
+
+.item img {
+  width: 100%;
+}
+
+.button-add-to-cart {
+  position: relative;
+  top: -20px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  background-color: white;
+  border-radius: 20px;
+  /* margin-right: auto; */
+}
