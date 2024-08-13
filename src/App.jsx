@@ -35,12 +35,19 @@ function App() {
                   />
                   Add to Cart
                 </button>
-                <p className="item-category">{item.category}</p>
-                <p className="item-name">{item.name}</p>
-                <p className="item-price">${item.price.toFixed(2)}</p>
+                <div className="item-details">
+                  <p className="item-category">{item.category}</p>
+                  <p className="item-name">{item.name}</p>
+                  <p className="item-price">${item.price.toFixed(2)}</p>
+                </div>
               </li>
             ))}
           </ul>
+        </div>
+        <div className="container-right">
+          <div className="cart-container">
+            <h2>Your Cart</h2>
+          </div>
         </div>
       </div>
     </main>
