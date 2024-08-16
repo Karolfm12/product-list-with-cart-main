@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [data, setData] = useState([]);
+  const [isAdded, setIsAdded] = useState(false);
+  const [count, setCount] = useState(0);
 
   const fetchItems = async () => {
     try {
@@ -18,6 +20,21 @@ function App() {
     fetchItems();
   }, []);
 
+  const handleButton = () => {
+    setIsAdded(true);
+    // setIsAdded(true);
+    //   const styles = e.currentTarget.style;
+    //   styles.width = "70%";
+    //   styles.backgroundColor = "hsl(14, 86%, 42%)";
+    //   styles.color = "white";
+    //   styles.border = "1px solid hsl(14, 86%, 42%)";
+    //   e.target.innerHTML = `<img src="../assets/images/icon-decrement-quantity.svg" alt="" class="incDec" onClick=${() =>
+    //     setCount(
+    //       count - 1
+    //     )}>Added to Cart<img src="../assets/images/icon-increment-quantity.svg" alt="" class="incDec" onClick=${() =>
+    //     setCount(count + 1)}>`;
+  };
+
   return (
     <main>
       <div className="container">
@@ -26,15 +43,18 @@ function App() {
           <ul className="items-list">
             {data.map((item, i) => (
               <li className="item" key={i}>
-                <img src={item.image.desktop} alt="" />
-                <button className="button-add-to-cart">
-                  <img
-                    style={{ width: "20px" }}
-                    src="../assets/images/icon-add-to-cart.svg"
-                    alt=""
-                  />
-                  Add to Cart
+                <img src={item.image.desktop} alt="" className="item-image" />
+                <button className="button-add-to-cart" onClick={handleButton}>
+                  {isAdded ? (
+                    <></>
+                  ) : (
+                    <>
+                      <img src="../assets/images/icon-add-to-cart.svg" alt="" />
+                      Add to Cart
+                    </>
+                  )}
                 </button>
+
                 <div className="item-details">
                   <p className="item-category">{item.category}</p>
                   <p className="item-name">{item.name}</p>
