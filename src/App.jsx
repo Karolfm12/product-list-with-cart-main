@@ -9,9 +9,7 @@ function App() {
     try {
       const res = await fetch("../data.json");
       const data = await res.json();
-
       setData(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -23,23 +21,28 @@ function App() {
 
   const handleButton = (e) => {
     setIsAdded(true);
+    setCount(1);
 
     const styles = e.currentTarget.style;
     styles.backgroundColor = "hsl(14, 86%, 42%)";
     styles.color = "white";
     styles.display = "flex";
     styles.justifyContent = "space-between";
-    // setIsAdded(true);
-    //   const styles = e.currentTarget.style;
-    //   styles.width = "70%";
-    //   styles.backgroundColor = "hsl(14, 86%, 42%)";
-    //   styles.color = "white";
-    //   styles.border = "1px solid hsl(14, 86%, 42%)";
-    //   e.target.innerHTML = `<img src="../assets/images/icon-decrement-quantity.svg" alt="" class="incDec" onClick=${() =>
-    //     setCount(
-    //       count - 1
-    //     )}>Added to Cart<img src="../assets/images/icon-increment-quantity.svg" alt="" class="incDec" onClick=${() =>
-    //     setCount(count + 1)}>`;
+  };
+
+  const onIcrementClick = (e) => {
+    e.stopPropagation();
+    setCount((prev) => prev + 1);
+  };
+
+  const onDecrementClick = (e) => {
+    e.stopPropagation();
+    if (count === 1) {
+      setIsAdded(false);
+      setCount(0);
+    } else if (count > 0) {
+      setCount((prev) => prev - 1);
+    }
   };
 
   return (
@@ -65,18 +68,14 @@ function App() {
                         src="../assets/images/icon-decrement-quantity.svg"
                         alt=""
                         className="incDec"
-                        onClick={() =>
-                          setCount(count - 1)
-                        }
+                        onClick={onDecrementClick}
                       />
                       {count}
                       <img
                         src="../assets/images/icon-increment-quantity.svg"
                         alt=""
                         className="incDec"
-                        onClick={() =>
-                          setCount(count + 1)
-                        }
+                        onClick={onIcrementClick}
                       />
                     </>
                   ) : (
@@ -94,9 +93,7 @@ function App() {
                   <p className="item-category">
                     {item.category}
                   </p>
-                  <p className="item-name">
-                    {item.name}
-                  </p>
+                  <p className="item-name">{item.name}</p>
                   <p className="item-price">
                     ${item.price.toFixed(2)}
                   </p>
