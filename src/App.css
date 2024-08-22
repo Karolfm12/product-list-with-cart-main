@@ -116,6 +116,23 @@ h2 {
   transition-duration: 0.3s;
 }
 
+.button-isAdded {
+  padding: 15px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 700;
+  width: 60%;
+  position: relative;
+  top: -30px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  background-color: var(--Red);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
 .button-add-to-cart:hover {
   color: var(--Red);
   border: 1px solid var(--Red);

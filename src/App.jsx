@@ -19,24 +19,18 @@ function App() {
     fetchItems();
   }, []);
 
-  const handleButton = (e) => {
+  const handleButton = () => {
+    if (isAdded) return;
+
     setIsAdded(true);
     setCount(1);
-
-    const styles = e.currentTarget.style;
-    styles.backgroundColor = "hsl(14, 86%, 42%)";
-    styles.color = "white";
-    styles.display = "flex";
-    styles.justifyContent = "space-between";
   };
 
-  const onIcrementClick = (e) => {
-    e.stopPropagation();
+  const onIcrementClick = () => {
     setCount((prev) => prev + 1);
   };
 
-  const onDecrementClick = (e) => {
-    e.stopPropagation();
+  const onDecrementClick = () => {
     if (count === 1) {
       setIsAdded(false);
       setCount(0);
@@ -59,7 +53,11 @@ function App() {
                   className="item-image"
                 />
                 <button
-                  className="button-add-to-cart"
+                  className={
+                    isAdded
+                      ? "button-isAdded"
+                      : "button-add-to-cart"
+                  }
                   onClick={handleButton}
                 >
                   {isAdded ? (
