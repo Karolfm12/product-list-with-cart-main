@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [data, setData] = useState([]);
-  const [isAdded, setIsAdded] = useState(false);
-  const [count, setCount] = useState(0);
+  const [itemState, setItemState] = useState([]);
+  // const [isAdded, setIsAdded] = useState(false);
+  // const [count, setCount] = useState(0);
 
   const fetchItems = async () => {
     try {
@@ -19,24 +20,27 @@ function App() {
     fetchItems();
   }, []);
 
-  const handleButton = () => {
-    if (isAdded) return;
-
-    setIsAdded(true);
-    setCount(1);
+  const handleButton = (i) => {
+    setItemState((prevItem) => ({
+      ...prevItem,
+      [i]: {
+        isAdded: true,
+        count: 1,
+      },
+    }));
   };
 
   const onIcrementClick = () => {
-    setCount((prev) => prev + 1);
+    // setCount((prev) => prev + 1);
   };
 
   const onDecrementClick = () => {
-    if (count === 1) {
-      setIsAdded(false);
-      setCount(0);
-    } else if (count > 0) {
-      setCount((prev) => prev - 1);
-    }
+    // if (count === 1) {
+    //   setIsAdded(false);
+    //   setCount(0);
+    // } else if (count > 0) {
+    //   setCount((prev) => prev - 1);
+    // }
   };
 
   return (
@@ -54,13 +58,16 @@ function App() {
                 />
                 <button
                   className={
-                    isAdded
+                    itemState[i]?.isAdded
                       ? "button-isAdded"
                       : "button-add-to-cart"
                   }
-                  onClick={handleButton}
+                  onClick={() => {
+                    console.log(i);
+                    return handleButton(i);
+                  }}
                 >
-                  {isAdded ? (
+                  {itemState[i]?.isAdded ? (
                     <>
                       <img
                         src="../assets/images/icon-decrement-quantity.svg"
@@ -68,7 +75,7 @@ function App() {
                         className="incDec"
                         onClick={onDecrementClick}
                       />
-                      {count}
+                      {itemState[i].count}
                       <img
                         src="../assets/images/icon-increment-quantity.svg"
                         alt=""
