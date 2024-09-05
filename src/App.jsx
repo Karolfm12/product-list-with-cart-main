@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [data, setData] = useState([]);
-  const [itemState, setItemState] = useState([]);
+  const [itemState, setItemState] = useState({});
   // const [isAdded, setIsAdded] = useState(false);
   // const [count, setCount] = useState(0);
 
@@ -21,17 +21,25 @@ function App() {
   }, []);
 
   const handleButton = (i) => {
-    setItemState((prevItem) => ({
-      ...prevItem,
-      [i]: {
-        isAdded: true,
-        count: 1,
-      },
-    }));
+    setItemState((prevItem) => {
+      return {
+        ...prevItem,
+        [i]: {
+          isAdded: true,
+          count: 1,
+        },
+      };
+    });
   };
 
-  const onIcrementClick = () => {
-    // setCount((prev) => prev + 1);
+  const onIcrementClick = (i) => {
+    setItemState((prevState) => {
+      const item = prevState[i];
+      return {
+        ...prevState,
+        [i]: { ...item, count: item.count + 1 },
+      };
+    });
   };
 
   const onDecrementClick = () => {
@@ -62,10 +70,7 @@ function App() {
                       ? "button-isAdded"
                       : "button-add-to-cart"
                   }
-                  onClick={() => {
-                    console.log(i);
-                    return handleButton(i);
-                  }}
+                  onClick={() => handleButton(i)}
                 >
                   {itemState[i]?.isAdded ? (
                     <>
@@ -75,12 +80,15 @@ function App() {
                         className="incDec"
                         onClick={onDecrementClick}
                       />
-                      {itemState[i].count}
+                      {itemState[i]?.count}
                       <img
                         src="../assets/images/icon-increment-quantity.svg"
                         alt=""
                         className="incDec"
-                        onClick={onIcrementClick}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onIcrementClick(i);
+                        }}
                       />
                     </>
                   ) : (
