@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 function App() {
   const [data, setData] = useState([]);
   const [itemState, setItemState] = useState({});
-  // const [isAdded, setIsAdded] = useState(false);
-  // const [count, setCount] = useState(0);
 
   const fetchItems = async () => {
     try {
@@ -42,14 +40,28 @@ function App() {
     });
   };
 
-  const onDecrementClick = () => {
-    // if (count === 1) {
-    //   setIsAdded(false);
-    //   setCount(0);
-    // } else if (count > 0) {
-    //   setCount((prev) => prev - 1);
-    // }
+  const onDecrementClick = (i) => {
+    setItemState((currentState) => {
+      const item = currentState[i];
+      if (item.count > 1) {
+        return {
+          ...currentState,
+          [i]: { ...item, count: item.count - 1 },
+        };
+      } else {
+        return {
+          ...currentState,
+          [i]: {
+            ...item,
+            isAdded: false,
+            count: 0,
+          },
+        };
+      }
+    });
   };
+
+  // const totalAmount=
 
   return (
     <main>
@@ -78,7 +90,10 @@ function App() {
                         src="../assets/images/icon-decrement-quantity.svg"
                         alt=""
                         className="incDec"
-                        onClick={onDecrementClick}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onDecrementClick(i);
+                        }}
                       />
                       {itemState[i]?.count}
                       <img
@@ -117,7 +132,19 @@ function App() {
         </div>
         <div className="container-right">
           <div className="cart-container">
-            <h2>Your Cart</h2>
+            <h2>Your Cart{itemState.count}</h2>
+            <ul>
+              {data.map((item, i) => {
+                if (itemState[i]?.count > 0) {
+                  return (
+                    <li key={i}>
+                      {itemState[i]?.count}
+                      {item.name}
+                    </li>
+                  );
+                }
+              })}
+            </ul>
           </div>
         </div>
       </div>
