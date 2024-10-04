@@ -8,14 +8,27 @@ function App() {
     try {
       const res = await fetch("../data.json");
       const data = await res.json();
+
       setData(data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const totalAmount = Object.values(itemState).reduce(
+    (total, current) => total + current.count,
+    0
+  );
+
+  const totalPrice = data
+    .filter((_, i) => itemState[i]?.count > 0)
+    .reduce((total, current, i) => {
+      return total + current.price * itemState[i].count;
+    }, 0);
+
   useEffect(() => {
     fetchItems();
+    console.log(totalPrice);
   }, []);
 
   const handleButton = (i) => {
@@ -132,7 +145,7 @@ function App() {
         </div>
         <div className="container-right">
           <div className="cart-container">
-            <h2>Your Cart{itemState.count}</h2>
+            <h2>Your Cart ({totalAmount})</h2>
             <ul>
               {data.map((item, i) => {
                 if (itemState[i]?.count > 0) {
@@ -145,6 +158,7 @@ function App() {
                 }
               })}
             </ul>
+            <div>Order total: {totalPrice}</div>
           </div>
         </div>
       </div>
