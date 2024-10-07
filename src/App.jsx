@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Cart from "./components/Cart";
+import ItemList from "./components/itemList";
 
 function App() {
   const [data, setData] = useState([]);
@@ -20,11 +22,12 @@ function App() {
     0
   );
 
-  const totalPrice = data
-    .filter((_, i) => itemState[i]?.count > 0)
-    .reduce((total, current, i) => {
+  const totalPrice = data.reduce((total, current, i) => {
+    if (itemState[i]?.count > 0) {
       return total + current.price * itemState[i].count;
-    }, 0);
+    }
+    return total;
+  }, 0);
 
   useEffect(() => {
     fetchItems();
@@ -62,14 +65,9 @@ function App() {
           [i]: { ...item, count: item.count - 1 },
         };
       } else {
-        return {
-          ...currentState,
-          [i]: {
-            ...item,
-            isAdded: false,
-            count: 0,
-          },
-        };
+        const newState = { ...currentState };
+        delete newState[i];
+        return newState;
       }
     });
   };
@@ -81,84 +79,37 @@ function App() {
       <div className="container">
         <div className="container-left">
           <h1>Desserts</h1>
-          <ul className="items-list">
-            {data.map((item, i) => (
-              <li className="item" key={i}>
-                <img
-                  src={item.image.desktop}
-                  alt=""
-                  className="item-image"
-                />
-                <button
-                  className={
-                    itemState[i]?.isAdded
-                      ? "button-isAdded"
-                      : "button-add-to-cart"
-                  }
-                  onClick={() => handleButton(i)}
-                >
-                  {itemState[i]?.isAdded ? (
-                    <>
-                      <img
-                        src="../assets/images/icon-decrement-quantity.svg"
-                        alt=""
-                        className="incDec"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDecrementClick(i);
-                        }}
-                      />
-                      {itemState[i]?.count}
-                      <img
-                        src="../assets/images/icon-increment-quantity.svg"
-                        alt=""
-                        className="incDec"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onIcrementClick(i);
-                        }}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        src="../assets/images/icon-add-to-cart.svg"
-                        alt=""
-                      />
-                      Add to Cart
-                    </>
-                  )}
-                </button>
-
-                <div className="item-details">
-                  <p className="item-category">
-                    {item.category}
-                  </p>
-                  <p className="item-name">{item.name}</p>
-                  <p className="item-price">
-                    ${item.price.toFixed(2)}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <ItemList
+            data={data}
+            itemState={itemState}
+            handleButton={handleButton}
+            onIcrementClick={onIcrementClick}
+            onDecrementClick={onDecrementClick}
+          ></ItemList>
         </div>
         <div className="container-right">
           <div className="cart-container">
-            <h2>Your Cart ({totalAmount})</h2>
-            <ul>
+            <Cart
+              totalAmount={totalAmount}
+              data={data}
+              itemState={itemState}
+              totalPrice={totalPrice}
+            ></Cart>
+            {/* <h2>Your Cart ({totalAmount})</h2>
+            <ul className="cart-items">
               {data.map((item, i) => {
                 if (itemState[i]?.count > 0) {
                   return (
                     <li key={i}>
                       {itemState[i]?.count}
                       {item.name}
+                      <hr />
                     </li>
                   );
                 }
               })}
             </ul>
-            <div>Order total: {totalPrice}</div>
+            <div>Order total: {totalPrice}</div> */}
           </div>
         </div>
       </div>
