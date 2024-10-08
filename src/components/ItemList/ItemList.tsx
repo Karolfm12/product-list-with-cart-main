@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./ItemList.module.css";
 
 interface Item {
   image: {
@@ -27,19 +28,23 @@ const ItemList: React.FC<ItemListProps> = ({
   onDecrementClick,
 }) => {
   return (
-    <ul className="items-list">
+    <ul className={styles.itemslist}>
       {data.map((item, i) => (
-        <li className="item" key={i}>
+        <li className={styles.item} key={i}>
           <img
             src={item.image.desktop}
             alt=""
-            className="item-image"
+            className={
+              itemState[i]?.isAdded
+                ? styles.itemImage_isAdded
+                : styles.itemimage
+            }
           />
           <button
             className={
               itemState[i]?.isAdded
-                ? "button-isAdded"
-                : "button-add-to-cart"
+                ? styles.button_isAdded
+                : styles.button_add_to_cart
             }
             onClick={() => handleButton(i)}
           >
@@ -48,7 +53,7 @@ const ItemList: React.FC<ItemListProps> = ({
                 <img
                   src="../assets/images/icon-decrement-quantity.svg"
                   alt=""
-                  className="incDec"
+                  className={styles.incDec}
                   onClick={(e) => {
                     e.stopPropagation();
                     onDecrementClick(i);
@@ -58,7 +63,7 @@ const ItemList: React.FC<ItemListProps> = ({
                 <img
                   src="../assets/images/icon-increment-quantity.svg"
                   alt=""
-                  className="incDec"
+                  className={styles.incDec}
                   onClick={(e) => {
                     e.stopPropagation();
                     onIcrementClick(i);
@@ -76,10 +81,12 @@ const ItemList: React.FC<ItemListProps> = ({
             )}
           </button>
 
-          <div className="item-details">
-            <p className="item-category">{item.category}</p>
-            <p className="item-name">{item.name}</p>
-            <p className="item-price">
+          <div className={styles.itemdetails}>
+            <p className={styles.itemcategory}>
+              {item.category}
+            </p>
+            <p className={styles.itemname}>{item.name}</p>
+            <p className={styles.itemprice}>
               ${item.price.toFixed(2)}
             </p>
           </div>

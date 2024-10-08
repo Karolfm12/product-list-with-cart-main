@@ -1,0 +1,110 @@
+.itemslist {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.item {
+  position: relative;
+
+  width: 280px;
+}
+
+.item .itemimage {
+  border: 3px solid transparent;
+  border-radius: 10px;
+  width: 100%;
+  object-fit: cover;
+  transition: border 0.5s ease-in-out;
+}
+
+.itemImage_isAdded {
+  border: 3px solid var(--Red);
+  border-radius: 10px;
+  width: 100%;
+  object-fit: cover;
+  transition: border 0.5s ease-in-out;
+}
+
+.itemdetails {
+  position: relative;
+
+  bottom: 20px;
+}
+
+.item .itemcategory {
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.item .itemname {
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--Rose900);
+}
+
+.item .itemprice {
+  font-weight: 800;
+  color: var(--Red);
+}
+
+.incDec {
+  background-color: var(--Red);
+  width: 10px;
+  height: 10px;
+  padding: 3%;
+  border: 1px solid white;
+  border-radius: 50%;
+  transition-property: all;
+  transition-duration: 0.3s;
+}
+
+.incDec:hover {
+  background-color: white;
+  fill: green;
+}
+
+.button_add_to_cart {
+  color: var(--Rose900);
+  font-weight: 700;
+  width: 60%;
+  position: relative;
+  top: -30px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  background-color: white;
+  border-radius: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--Rose400);
+  transition-property: all;
+  transition-duration: 0.3s;
+}
+
+.button_isAdded {
+  padding: 15px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 700;
+  width: 60%;
+  position: relative;
+  top: -30px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  background-color: var(--Red);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  border: none;
+}
+
+.button_add_to_cart:hover {
+  color: var(--Red);
+  border: 1px solid var(--Red);
+}

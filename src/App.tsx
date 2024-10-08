@@ -1,10 +1,23 @@
-import { useEffect, useState } from "react";
-import Cart from "./components/Cart";
-import ItemList from "./components/itemList";
+import React, { useEffect, useState } from "react";
+import Cart from "./components/Cart/Cart";
+import ItemList from "./components/ItemList/ItemList";
+
+interface Item {
+  category: string;
+  price: number;
+  name: string;
+  image: {
+    desktop: string;
+  };
+}
+
+interface itemState {
+  [key: number]: { isAdded: boolean; count: number };
+}
 
 function App() {
-  const [data, setData] = useState([]);
-  const [itemState, setItemState] = useState({});
+  const [data, setData] = useState<Item[]>([]);
+  const [itemState, setItemState] = useState<itemState>({});
 
   const fetchItems = async () => {
     try {
@@ -31,10 +44,9 @@ function App() {
 
   useEffect(() => {
     fetchItems();
-    console.log(totalPrice);
   }, []);
 
-  const handleButton = (i) => {
+  const handleButton = (i: number) => {
     setItemState((prevItem) => {
       return {
         ...prevItem,
@@ -46,7 +58,7 @@ function App() {
     });
   };
 
-  const onIcrementClick = (i) => {
+  const onIcrementClick = (i: number) => {
     setItemState((prevState) => {
       const item = prevState[i];
       return {
@@ -56,7 +68,7 @@ function App() {
     });
   };
 
-  const onDecrementClick = (i) => {
+  const onDecrementClick = (i: number) => {
     setItemState((currentState) => {
       const item = currentState[i];
       if (item.count > 1) {
@@ -71,8 +83,6 @@ function App() {
       }
     });
   };
-
-  // const totalAmount=
 
   return (
     <main>
@@ -95,21 +105,6 @@ function App() {
               itemState={itemState}
               totalPrice={totalPrice}
             ></Cart>
-            {/* <h2>Your Cart ({totalAmount})</h2>
-            <ul className="cart-items">
-              {data.map((item, i) => {
-                if (itemState[i]?.count > 0) {
-                  return (
-                    <li key={i}>
-                      {itemState[i]?.count}
-                      {item.name}
-                      <hr />
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-            <div>Order total: {totalPrice}</div> */}
           </div>
         </div>
       </div>

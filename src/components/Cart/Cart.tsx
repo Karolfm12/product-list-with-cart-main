@@ -1,5 +1,5 @@
 import React from "react";
-
+import styles from "./Cart.module.css";
 interface Item {
   image: {
     desktop: string;
@@ -27,13 +27,13 @@ const Cart: React.FC<CartProps> = ({
   return (
     <>
       <h2>Your Cart ({totalAmount})</h2>
-      <ul className="cart-items">
+      <ul className={styles.cart_items}>
         {data.map((item, i) => {
           if (itemState[i]?.count > 0) {
             return (
               <li key={i}>
-                {itemState[i]?.count}
-                {item.name}
+                <div>{item.name}</div>
+                {itemState[i]?.count}x&nbsp;&nbsp;
                 <hr />
               </li>
             );
