@@ -1,3 +1,14 @@
 .cart_items li {
   padding: 20px 0;
 }
+
+.item_count {
+  color: var(--Red);
+  font-weight: 500;
+}
+
+.item_name {
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--Rose900);
+}

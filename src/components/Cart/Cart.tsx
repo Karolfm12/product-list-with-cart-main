@@ -32,15 +32,23 @@ const Cart: React.FC<CartProps> = ({
           if (itemState[i]?.count > 0) {
             return (
               <li key={i}>
-                <div>{item.name}</div>
-                {itemState[i]?.count}x&nbsp;&nbsp;
+                <div className={styles.item_name}>
+                  {item.name}
+                </div>
+                <span className={styles.item_count}>
+                  {itemState[i]?.count}x&nbsp;&nbsp;
+                </span>
+                @ ${data[i].price.toFixed(2)}&nbsp;&nbsp; $
+                {(
+                  data[i].price * itemState[i]?.count
+                ).toFixed(2)}
                 <hr />
               </li>
             );
           }
         })}
       </ul>
-      <div>Order total: {totalPrice}</div>
+      <div>Order total: {totalPrice.toFixed(2)}</div>
     </>
   );
 };
