@@ -16,6 +16,7 @@ interface CartProps {
   };
   totalAmount: number;
   totalPrice: number;
+  onDeleteItem: (i: number) => void;
 }
 
 const Cart: React.FC<CartProps> = ({
@@ -23,6 +24,7 @@ const Cart: React.FC<CartProps> = ({
   data,
   itemState,
   totalPrice,
+  onDeleteItem,
 }) => {
   return (
     <>
@@ -31,24 +33,68 @@ const Cart: React.FC<CartProps> = ({
         {data.map((item, i) => {
           if (itemState[i]?.count > 0) {
             return (
-              <li key={i}>
-                <div className={styles.item_name}>
-                  {item.name}
+              <li
+                key={i}
+                className={styles.ordered_product}
+              >
+                <div className={styles.cart_box}>
+                  <div className={styles.left}>
+                    <div className={styles.item_name}>
+                      {item.name}
+                    </div>
+                    <div
+                      className={
+                        styles.ordered_product_details
+                      }
+                    >
+                      <span className={styles.item_count}>
+                        {itemState[i]?.count}x
+                      </span>
+                      <span
+                        className={styles.product_price}
+                      >
+                        @ ${data[i].price.toFixed(2)}
+                      </span>
+                      <span
+                        className={
+                          styles.total_product_price
+                        }
+                      >
+                        {" "}
+                        $
+                        {(
+                          data[i].price *
+                          itemState[i]?.count
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    className={styles.right_buttonDelete}
+                  >
+                    <img
+                      className={styles.delete_item}
+                      onClick={(e) => onDeleteItem(i)}
+                      src="./../../../assets/images/icon-remove-item.svg"
+                      alt=""
+                    />
+                  </div>
                 </div>
-                <span className={styles.item_count}>
-                  {itemState[i]?.count}x&nbsp;&nbsp;
-                </span>
-                @ ${data[i].price.toFixed(2)}&nbsp;&nbsp; $
-                {(
-                  data[i].price * itemState[i]?.count
-                ).toFixed(2)}
-                <hr />
+                <hr className={styles.horizontal_line}></hr>
               </li>
             );
           }
         })}
       </ul>
-      <div>Order total: {totalPrice.toFixed(2)}</div>
+      <div className={styles.total_price_box}>
+        <span style={{ fontWeight: "500" }}>
+          Order total:{" "}
+        </span>
+
+        <span className={styles.total_price}>
+          ${totalPrice.toFixed(2)}
+        </span>
+      </div>
     </>
   );
 };

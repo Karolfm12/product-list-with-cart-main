@@ -84,6 +84,13 @@ function App() {
     });
   };
 
+  const onDeleteItem = (i: number) => {
+    setItemState((currentStates) => {
+      const item = currentStates[i];
+      console.log(item);
+    });
+  };
+
   return (
     <main>
       <div className="container">
@@ -104,6 +111,7 @@ function App() {
               data={data}
               itemState={itemState}
               totalPrice={totalPrice}
+              onDeleteItem={onDeleteItem}
             ></Cart>
           </div>
         </div>
