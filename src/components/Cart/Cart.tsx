@@ -17,6 +17,7 @@ interface CartProps {
   totalAmount: number;
   totalPrice: number;
   onDeleteItem: (i: number) => void;
+  confirmOrderButtonClick: () => void;
 }
 
 const Cart: React.FC<CartProps> = ({
@@ -25,6 +26,7 @@ const Cart: React.FC<CartProps> = ({
   itemState,
   totalPrice,
   onDeleteItem,
+  confirmOrderButtonClick,
 }) => {
   return (
     <>
@@ -86,15 +88,41 @@ const Cart: React.FC<CartProps> = ({
           }
         })}
       </ul>
-      <div className={styles.total_price_box}>
-        <span style={{ fontWeight: "500" }}>
-          Order total:{" "}
-        </span>
 
-        <span className={styles.total_price}>
-          ${totalPrice.toFixed(2)}
-        </span>
-      </div>
+      {totalPrice ? (
+        <>
+          <div className={styles.total_price_box}>
+            <span style={{ fontWeight: "500" }}>
+              Order total:
+            </span>
+
+            <span className={styles.total_price}>
+              ${totalPrice.toFixed(2)}
+            </span>
+          </div>
+          <div className={styles.neutral_delivery}>
+            <img
+              src="./../../../assets/images/icon-carbon-neutral.svg"
+              alt=""
+            />
+            <p>This is a carbon-neutral delivery</p>
+          </div>
+          <button
+            className={styles.confirm_order_button}
+            onClick={confirmOrderButtonClick}
+          >
+            Confirm Order
+          </button>
+        </>
+      ) : (
+        <div className={styles.empty_cart}>
+          <img
+            src="./../../../assets/images/illustration-empty-cart.svg"
+            alt=""
+          />
+          <p>Your added items will appear here</p>
+        </div>
+      )}
     </>
   );
 };

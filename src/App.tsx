@@ -18,6 +18,8 @@ interface itemState {
 function App() {
   const [data, setData] = useState<Item[]>([]);
   const [itemState, setItemState] = useState<itemState>({});
+  const [isPopupVisible, setPopupVisible] =
+    useState<boolean>(false);
 
   const fetchItems = async () => {
     try {
@@ -85,14 +87,41 @@ function App() {
   };
 
   const onDeleteItem = (i: number) => {
-    setItemState((currentStates) => {
-      const item = currentStates[i];
-      console.log(item);
+    setItemState((prevItem) => {
+      const newState = { ...prevItem };
+      delete newState[i];
+      return newState;
     });
+  };
+
+  const confirmOrderButtonClick = () => {
+    setPopupVisible(true);
   };
 
   return (
     <main>
+      {isPopupVisible && (
+        <div className="popup_overlay">
+          <div className="popup">
+            <img
+              src="./../assets/images/icon-order-confirmed.svg"
+              alt=""
+            />
+            <h2>Orderd Confirmed</h2>
+            <p>We hope You enjoy your food</p>
+            <ul>
+              {data.map((item, i) => {
+                if (itemState[i]?.count > 0) {
+                  return <li key={i}>{item.name}</li>;
+                }
+              })}
+            </ul>
+            <button className="confirm_order_button">
+              Start New Order
+            </button>
+          </div>
+        </div>
+      )}
       <div className="container">
         <div className="container-left">
           <h1>Desserts</h1>
@@ -112,6 +141,9 @@ function App() {
               itemState={itemState}
               totalPrice={totalPrice}
               onDeleteItem={onDeleteItem}
+              confirmOrderButtonClick={
+                confirmOrderButtonClick
+              }
             ></Cart>
           </div>
         </div>
