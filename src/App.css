@@ -60,37 +60,3 @@ h2 {
   font-weight: 800;
   color: var(--Rose900);
 }
-
-.popup_overlay {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.562);
-
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 100;
-}
-
-.popup {
-  background-color: white;
-
-  min-height: 100px;
-
-  padding: 20px;
-  border-radius: 30px;
-}
-
-.confirm_order_button {
-  background-color: var(--Red);
-  color: var(--Rose100);
-  cursor: pointer;
-  font-size: 1.2rem;
-  width: 100%;
-  border: none;
-  border-radius: 30px;
-  padding: 20px 0;
-}

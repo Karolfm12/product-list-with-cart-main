@@ -1,0 +1,60 @@
+.popup_overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.562);
+
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  animation: fadeIn_overlay 0.5s ease-in-out;
+}
+
+.popup {
+  background-color: white;
+
+  min-height: 100px;
+
+  padding: 40px;
+  border-radius: 30px;
+  animation: fadeIn_popup 0.5s ease-in-out;
+}
+
+.cart_items {
+  padding: 20px 0;
+  background-color: var(--Rose50);
+}
+
+.confirm_order_button {
+  background-color: var(--Red);
+  color: var(--Rose100);
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  padding: 20px 0;
+}
+
+@keyframes fadeIn_overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn_popup {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}

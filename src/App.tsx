@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cart from "./components/Cart/Cart";
 import ItemList from "./components/ItemList/ItemList";
+import Popup from "./components/Popup/Popup";
 
 interface Item {
   category: string;
@@ -98,29 +99,19 @@ function App() {
     setPopupVisible(true);
   };
 
+  const startNewOrder = () => {
+    setPopupVisible(false);
+    setItemState({});
+  };
+
   return (
     <main>
       {isPopupVisible && (
-        <div className="popup_overlay">
-          <div className="popup">
-            <img
-              src="./../assets/images/icon-order-confirmed.svg"
-              alt=""
-            />
-            <h2>Orderd Confirmed</h2>
-            <p>We hope You enjoy your food</p>
-            <ul>
-              {data.map((item, i) => {
-                if (itemState[i]?.count > 0) {
-                  return <li key={i}>{item.name}</li>;
-                }
-              })}
-            </ul>
-            <button className="confirm_order_button">
-              Start New Order
-            </button>
-          </div>
-        </div>
+        <Popup
+          data={data}
+          itemState={itemState}
+          startNewOrder={startNewOrder}
+        ></Popup>
       )}
       <div className="container">
         <div className="container-left">

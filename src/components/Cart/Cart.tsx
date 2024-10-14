@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Cart.module.css";
-interface Item {
+export interface Item {
   image: {
     desktop: string;
   };
