@@ -9,6 +9,7 @@ interface Item {
   name: string;
   image: {
     desktop: string;
+    thumbnail: string;
   };
 }
 
@@ -47,6 +48,7 @@ function App() {
 
   useEffect(() => {
     fetchItems();
+    console.log(data);
   }, []);
 
   const handleButton = (i: number) => {

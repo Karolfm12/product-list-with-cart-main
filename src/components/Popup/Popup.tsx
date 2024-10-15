@@ -3,6 +3,7 @@ import styles from "./Popup.module.css";
 interface Item {
   image: {
     desktop: string;
+    thumbnail: string;
   };
   category: string;
   name: string;
@@ -38,9 +39,45 @@ const Popup: React.FC<PopupProps> = ({
               if (itemState[i]?.count > 0) {
                 return (
                   <li key={i}>
-                    {data[i].thumbnail}
-                    {item.name}
-                    <hr />
+                    <div
+                      className={styles.order_details_left}
+                    >
+                      <img
+                        src={data[i].image.thumbnail}
+                        alt=""
+                      />
+
+                      <div
+                        className={
+                          styles.order_details_left_box
+                        }
+                      >
+                        <span> {item.name}</span>
+                        <div
+                          className={
+                            styles.order_details_left_box_down
+                          }
+                        >
+                          <span>
+                            {" "}
+                            {itemState[i].count}x{" "}
+                          </span>
+                          <span>
+                            {" "}
+                            @${data[i].price.toFixed(2)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className={styles.order_details_right}
+                    >
+                      $
+                      {(
+                        data[i].price * itemState[i].count
+                      ).toFixed(2)}
+                    </div>
+                    <hr></hr>
                   </li>
                 );
               }
