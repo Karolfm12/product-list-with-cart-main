@@ -35,45 +35,24 @@ const Cart: React.FC<CartProps> = ({
         {data.map((item, i) => {
           if (itemState[i]?.count > 0) {
             return (
-              <li
-                key={i}
-                className={styles.ordered_product}
-              >
+              <li key={i} className={styles.ordered_product}>
                 <div className={styles.cart_box}>
                   <div className={styles.left}>
-                    <div className={styles.item_name}>
-                      {item.name}
-                    </div>
-                    <div
-                      className={
-                        styles.ordered_product_details
-                      }
-                    >
+                    <div className={styles.item_name}>{item.name}</div>
+                    <div className={styles.ordered_product_details}>
                       <span className={styles.item_count}>
                         {itemState[i]?.count}x
                       </span>
-                      <span
-                        className={styles.product_price}
-                      >
+                      <span className={styles.product_price}>
                         @ ${data[i].price.toFixed(2)}
                       </span>
-                      <span
-                        className={
-                          styles.total_product_price
-                        }
-                      >
+                      <span className={styles.total_product_price}>
                         {" "}
-                        $
-                        {(
-                          data[i].price *
-                          itemState[i]?.count
-                        ).toFixed(2)}
+                        ${(data[i].price * itemState[i]?.count).toFixed(2)}
                       </span>
                     </div>
                   </div>
-                  <div
-                    className={styles.right_buttonDelete}
-                  >
+                  <div className={styles.right_buttonDelete}>
                     <img
                       className={styles.delete_item}
                       onClick={(e) => onDeleteItem(i)}
@@ -92,13 +71,9 @@ const Cart: React.FC<CartProps> = ({
       {totalPrice ? (
         <>
           <div className={styles.total_price_box}>
-            <span style={{ fontWeight: "500" }}>
-              Order total:
-            </span>
+            <span style={{ fontWeight: "500" }}>Order total:</span>
 
-            <span className={styles.total_price}>
-              ${totalPrice.toFixed(2)}
-            </span>
+            <span className={styles.total_price}>${totalPrice.toFixed(2)}</span>
           </div>
           <div className={styles.neutral_delivery}>
             <img

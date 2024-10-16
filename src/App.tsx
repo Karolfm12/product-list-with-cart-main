@@ -20,8 +20,7 @@ interface itemState {
 function App() {
   const [data, setData] = useState<Item[]>([]);
   const [itemState, setItemState] = useState<itemState>({});
-  const [isPopupVisible, setPopupVisible] =
-    useState<boolean>(false);
+  const [isPopupVisible, setPopupVisible] = useState<boolean>(false);
 
   const fetchItems = async () => {
     try {
@@ -113,6 +112,7 @@ function App() {
           data={data}
           itemState={itemState}
           startNewOrder={startNewOrder}
+          totalPrice={totalPrice}
         ></Popup>
       )}
       <div className="container">
@@ -134,9 +134,7 @@ function App() {
               itemState={itemState}
               totalPrice={totalPrice}
               onDeleteItem={onDeleteItem}
-              confirmOrderButtonClick={
-                confirmOrderButtonClick
-              }
+              confirmOrderButtonClick={confirmOrderButtonClick}
             ></Cart>
           </div>
         </div>
