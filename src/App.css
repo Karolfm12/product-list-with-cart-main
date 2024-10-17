@@ -13,12 +13,13 @@
 }
 
 main {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Red Hat Text", sans-serif;
   background-color: var(--Rose50);
+  overflow-y: auto;
 }
 
 .container {

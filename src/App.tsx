@@ -21,6 +21,7 @@ function App() {
   const [data, setData] = useState<Item[]>([]);
   const [itemState, setItemState] = useState<itemState>({});
   const [isPopupVisible, setPopupVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchItems = async () => {
     try {
@@ -30,6 +31,8 @@ function App() {
       setData(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -47,8 +50,21 @@ function App() {
 
   useEffect(() => {
     fetchItems();
-    console.log(data);
   }, []);
+
+  useEffect(() => {
+    const savedCartState = localStorage.getItem("cartState");
+    if (savedCartState) {
+      const parsedState = JSON.parse(savedCartState);
+      setItemState(parsedState);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      localStorage.setItem("cartState", JSON.stringify(itemState));
+    }
+  }, [itemState, isLoading]);
 
   const handleButton = (i: number) => {
     setItemState((prevItem) => {
