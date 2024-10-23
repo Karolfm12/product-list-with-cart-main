@@ -1,6 +1,7 @@
 {
   "name": "product-list-with-cart-main",
   "private": true,
+  "homepage": "https://Karolfm12.github.io/product-list-with-cart-main/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
